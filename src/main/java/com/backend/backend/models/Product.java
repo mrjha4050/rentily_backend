@@ -35,6 +35,6 @@ public class Product {
 
     private String status; // e.g., "AVAILABLE", "SOLD", "RENTED"
 
-    private String imageUrl; // URL of the uploaded image
+    private String imageUrl;
 
 }
