@@ -21,8 +21,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    private final CloudinaryService cloudinaryService;
+
     @Autowired
-    private CloudinaryService cloudinaryService;
+    public ProductController(CloudinaryService cloudinaryService) {
+        this.cloudinaryService = cloudinaryService;
+    }
 
     @PostMapping
     public ResponseEntity<Product> createProduct (
