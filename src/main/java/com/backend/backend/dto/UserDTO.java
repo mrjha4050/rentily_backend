@@ -6,8 +6,9 @@ import lombok.Data;
 
 @Data
 public class UserDTO {
-    public String name;
-    public String email;
-    public String password;
-    public String verificationToken;
+    private String name;
+    private String email;
+    private String password;
+    private String verificationToken;
+    private String role;
 }
