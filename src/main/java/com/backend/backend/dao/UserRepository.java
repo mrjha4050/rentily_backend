@@ -3,7 +3,10 @@ package com.backend.backend.dao;
 import com.backend.backend.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.Optional;
+
 public interface UserRepository extends MongoRepository<User, String> {
-    User findByName (String name);
-    User findByEmail (String email);
+   Optional<User> findByEmail(String email);
+
+   boolean existsByEmail(String email);
 }

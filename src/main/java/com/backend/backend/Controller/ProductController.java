@@ -1,8 +1,7 @@
 package com.backend.backend.Controller;
 
 
-import com.backend.backend.Service.CloudinaryService;
-import com.backend.backend.Service.ProductService;
+import com.backend.backend.Service.ServiceImpl.CloudinaryService;
 import com.backend.backend.models.Product;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import java.io.IOException;
 @RequestMapping("/api/products")
 public class ProductController {
     @Autowired
-    private ProductService productService;
+    private CloudinaryService.ProductService productService;
 
     private final CloudinaryService cloudinaryService;
 
