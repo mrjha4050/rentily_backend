@@ -4,7 +4,6 @@ import com.backend.backend.dao.ProductRepository;
 import com.backend.backend.models.Product;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,8 +38,10 @@ public class CloudinaryService {
 
     @Service
     public static class ProductService {
-        @Autowired
-        private ProductRepository productRepository;
+
+        private final ProductRepository productRepository;
+
+        public ProductService(ProductRepository productRepository) {this.productRepository = productRepository;}
 
         public Product createProduct(Product product) {
             product.setStatus("Available");

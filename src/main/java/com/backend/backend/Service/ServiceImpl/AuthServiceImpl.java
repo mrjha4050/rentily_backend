@@ -5,8 +5,6 @@ import com.backend.backend.dao.*;
 import com.backend.backend.dto.*;
 import com.backend.backend.models.User;
 import com.backend.backend.util.JwtUtil;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,15 +26,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean register(UserDTO userDTO) {
         if (userRepository.existsByEmail(userDTO.getEmail())) return false;
-
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setName(userDTO.getName());
         user.setRole(userDTO.getRole());
-
         userRepository.save(user);
-
         return true;
     }
 

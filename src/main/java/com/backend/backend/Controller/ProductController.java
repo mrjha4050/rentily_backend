@@ -17,26 +17,31 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    @Autowired
-    private CloudinaryService.ProductService productService;
+
+    private final CloudinaryService.ProductService productService;
 
     private final CloudinaryService cloudinaryService;
 
     @Autowired
-    public ProductController(CloudinaryService cloudinaryService) {
+    public ProductController(CloudinaryService cloudinaryService, CloudinaryService.ProductService productService) {
         this.cloudinaryService = cloudinaryService;
+        this.productService = productService;
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct (
-            @Valid @RequestPart("product") Product product,
-            @RequestPart(value = "image", required = false) MultipartFile image)  throws IOException {
-        if (image != null) {
-            String imageUrl = cloudinaryService.uploadImage(image);
-            product.setImageUrl(imageUrl);
-        }
+    public ResponseEntity<Product> createProductWithoutImage(@RequestBody @Valid Product product) {
         return ResponseEntity.ok(productService.createProduct(product));
     }
+//    public ResponseEntity<Product> createProduct (
+//            @Valid @RequestPart("product") Product product,
+//            @RequestPart(value = "image", required = false) MultipartFile image)  throws IOException {
+//        if (image != null) {
+//            String imageUrl = cloudinaryService.uploadImage(image);
+//            product.setImageUrl(imageUrl);
+//        }
+//        return ResponseEntity.ok(productService.createProduct(product));
+//    }
+
 
     @PostMapping("/{id}")
     public ResponseEntity<Product> updateProduct(

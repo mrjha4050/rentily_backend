@@ -13,6 +13,4 @@ public interface AuthService {
     void logout(String token);
 
     boolean resetPassword(RestPasswordDTO restPasswordDTO);
-
-
 }

@@ -1,5 +1,6 @@
 package com.backend.backend.config;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.backend.backend.Service.ServiceImpl.UserDetailsImpl;
 import com.backend.backend.dao.UserRepository;
 import com.backend.backend.models.User;
@@ -36,9 +37,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             String email = jwtUtil.extractEmail(token);
-
+            System.out.println("Email : " + email);
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 Optional<User> userOpt = userRepository.findByEmail(email);
+                System.out.println("Testing logs -------------"+userOpt.isPresent());
                 if (userOpt.isPresent()) {
                     UserDetails userDetails = new UserDetailsImpl(userOpt.get());
                     if (jwtUtil.validateToken(token, email)) {
@@ -49,7 +51,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     }
                 }
             }
-
+        System.out.println(" testing 2 ___________ testing");
         }
         filterChain.doFilter(request, response);
     }

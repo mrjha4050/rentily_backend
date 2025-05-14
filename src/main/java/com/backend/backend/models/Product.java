@@ -1,9 +1,5 @@
 package com.backend.backend.models;
 
-
-import jakarta.validation.MessageInterpolator;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
