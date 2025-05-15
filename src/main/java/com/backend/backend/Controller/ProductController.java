@@ -1,7 +1,10 @@
 package com.backend.backend.Controller;
 
 
+import com.backend.backend.Service.ProductService;
 import com.backend.backend.Service.ServiceImpl.CloudinaryService;
+import com.backend.backend.Service.ServiceImpl.ProductServiceImpl;
+import com.backend.backend.dto.ProductDTO;
 import com.backend.backend.models.Product;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +21,20 @@ import java.io.IOException;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final CloudinaryService.ProductService productService;
-
+    private  final ProductServiceImpl productServiceImpl;
     private final CloudinaryService cloudinaryService;
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(CloudinaryService cloudinaryService, CloudinaryService.ProductService productService) {
+    public ProductController(CloudinaryService cloudinaryService, ProductServiceImpl productServiceImpl, ProductService productService) {
         this.cloudinaryService = cloudinaryService;
+        this.productServiceImpl = productServiceImpl;
         this.productService = productService;
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProductWithoutImage(@RequestBody @Valid Product product) {
-        return ResponseEntity.ok(productService.createProduct(product));
+    public ResponseEntity<Product> createProductWithoutImage(@RequestBody @Valid ProductDTO productDTO) {
+        return ResponseEntity.ok(productServiceImpl.createProduct(productDTO));
     }
 //    public ResponseEntity<Product> createProduct (
 //            @Valid @RequestPart("product") Product product,
@@ -39,26 +43,26 @@ public class ProductController {
 //            String imageUrl = cloudinaryService.uploadImage(image);
 //            product.setImageUrl(imageUrl);
 //        }
-//        return ResponseEntity.ok(productService.createProduct(product));
+//        return ResponseEntity.ok(productServiceImpl.createProduct(product));
 //    }
 
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(
             @PathVariable String id,
-            @Valid @RequestPart("product") Product product,
+            @Valid @RequestPart("product") ProductDTO productDTO,
             @RequestPart(value = "image", required = false) MultipartFile image ) throws IOException {
 
         if (image != null) {
             String imageUrl = cloudinaryService.uploadImage(image);
-            product.setImageUrl(imageUrl);
+            productDTO.setImageUrl(imageUrl);
         }
-        return ResponseEntity.ok(productService.updateProduct(id, product));
+        return ResponseEntity.ok(productServiceImpl.updateProduct(id, productDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
-        productService.deleteProduct(id);
+        productServiceImpl.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -69,7 +73,7 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(productService.getProductsByUser(userId, pageable));
+        return ResponseEntity.ok(productServiceImpl.getProductsByUser(userId, pageable));
     }
 
     @GetMapping("/category/{category}")
@@ -78,7 +82,7 @@ public class ProductController {
             @RequestParam(defaultValue = "0")int page,
             @RequestParam(defaultValue = "10")int size) {
         Pageable pageable = PageRequest.of(page,size);
-        return ResponseEntity.ok(productService.getProductsByCategory(category, pageable));
+        return ResponseEntity.ok(productServiceImpl.getProductsByCategory(category, pageable));
     }
 
 
@@ -88,7 +92,7 @@ public class ProductController {
             @RequestParam(defaultValue = "0")int page,
             @RequestParam(defaultValue = "10")int size) {
         Pageable pageable = PageRequest.of(page,size);
-        return ResponseEntity.ok(productService.getProductsByType(type, pageable));
+        return ResponseEntity.ok(productServiceImpl.getProductsByType(type, pageable));
     }
 
     @GetMapping("/filter")
@@ -98,6 +102,6 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(productService.getProductsByCategoryAndType(category, type, pageable));
+        return ResponseEntity.ok(productServiceImpl.getProductsByCategoryAndType(category, type, pageable));
     }
 }

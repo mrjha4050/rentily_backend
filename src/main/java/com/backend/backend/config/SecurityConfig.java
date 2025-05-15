@@ -27,7 +27,6 @@ import java.util.List;
 public class SecurityConfig {
     
     private final JwtAuthFilter jwtAuthFilter;
-
     public SecurityConfig(JwtAuthFilter jwtAuthFilter) {this.jwtAuthFilter = jwtAuthFilter;}
     
     @Bean
@@ -38,7 +37,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
-                                "/swagger-ui.html" , "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/webjars/**", "/h2-console/**")
+                                "/swagger-ui.html" , "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/webjars/**", "/h2-console/**", "/api/cart/**", "/api/transaction/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())

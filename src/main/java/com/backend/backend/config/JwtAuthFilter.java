@@ -1,6 +1,5 @@
 package com.backend.backend.config;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.backend.backend.Service.ServiceImpl.UserDetailsImpl;
 import com.backend.backend.dao.UserRepository;
 import com.backend.backend.models.User;
