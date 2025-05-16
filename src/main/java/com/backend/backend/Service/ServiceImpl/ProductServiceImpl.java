@@ -62,4 +62,8 @@ public class ProductServiceImpl implements ProductService {
             return productRepository.findByCategoryAndType(category, type, pageable);
         }
 
+        public Page<Product> searchProducts(String keyword, String category, String type, double minPrice, double maxPrice, Pageable pageable) {
+            return productRepository.searchProducts(keyword, category, type, minPrice, maxPrice, pageable);
+        }
+
 }

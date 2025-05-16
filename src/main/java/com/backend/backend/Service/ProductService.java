@@ -13,5 +13,6 @@ public interface ProductService {
     Page<Product> getProductsByUser(String userId, Pageable pageable);
     Page<Product> getProductsByCategory(String category, Pageable pageable);
     Page<Product> getProductsByType(String type, Pageable pageable);
+    Page<Product> searchProducts(String keyword, String category, String type, double minPrice, double maxPrice, Pageable pageable);
     Page<Product> getProductsByCategoryAndType(String category, String type, Pageable pageable);
 }

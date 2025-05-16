@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
-                                "/swagger-ui.html" , "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/webjars/**", "/h2-console/**", "/api/cart/**", "/api/transaction/**")
+                                "/swagger-ui.html" , "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/webjars/**", "/h2-console/**", "/api/cart/**", "/api/transaction/**", "/api/products/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
@@ -67,7 +67,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("*"));
+        config.setAllowedOrigins(List.of("http://localhost:5173/","*"));
         config.setAllowedMethods(List.of("GET", "PUT", "POST", "DELETE" ,"OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(false);

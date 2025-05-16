@@ -84,8 +84,6 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page,size);
         return ResponseEntity.ok(productServiceImpl.getProductsByCategory(category, pageable));
     }
-
-
     @GetMapping("/type/{type}")
     public ResponseEntity<Page<Product>> getProductByType(
             @PathVariable String type,
@@ -104,4 +102,20 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(productServiceImpl.getProductsByCategoryAndType(category, type, pageable));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Product>> searchProducts(
+            @RequestParam(defaultValue = "") String keyword,
+            @RequestParam(defaultValue = "") String category,
+            @RequestParam(defaultValue = "") String type,
+            @RequestParam(defaultValue = "0") double minPrice,
+            @RequestParam(defaultValue = "1000000") double maxPrice,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> result = productService.searchProducts(keyword, category, type, minPrice, maxPrice, pageable);
+        return ResponseEntity.ok(result);
+    }
+
 }
