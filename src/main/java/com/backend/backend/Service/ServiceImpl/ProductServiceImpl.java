@@ -27,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
             product.setCategory(productDTO.getCategory());
             product.setType(productDTO.getType());
             product.setStatus("Available");
+            product.setTimestamp(productDTO.getTimestamp());
             return productRepository.save(product);
         }
 
@@ -39,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
             existing.setType(product.getType());
             existing.setStatus(product.getStatus());
             existing.setImageUrl(product.getImageUrl());
+            existing.setTimestamp(product.getTimestamp());
             return productRepository.save(existing);
         }
 

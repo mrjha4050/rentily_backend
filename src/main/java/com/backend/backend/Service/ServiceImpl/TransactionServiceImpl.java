@@ -26,6 +26,7 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setType(transactionDTO.getType());
         transaction.setStatus(transactionDTO.getStatus());
         transaction.setProductId(transactionDTO.getProductId());
+        transaction.setTimestamp(transactionDTO.getTimestamp());
         return transactionRepository.save(transaction);
     }
 

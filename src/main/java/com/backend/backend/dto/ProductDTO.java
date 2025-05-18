@@ -1,7 +1,8 @@
 package com.backend.backend.dto;
 
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class ProductDTO {
@@ -13,4 +14,6 @@ public class ProductDTO {
     private String status;
     private String userId;
     private String imageUrl;
+    private LocalDateTime timestamp;
+
 }

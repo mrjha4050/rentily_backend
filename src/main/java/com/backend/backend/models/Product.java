@@ -5,6 +5,9 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Data
 @Document(collection = "products")
 public class Product {
@@ -20,4 +23,6 @@ public class Product {
     private String userId; // Reference to the user who posted it
     private String status; // e.g., "AVAILABLE", "SOLD", "RENTED"
     private String imageUrl;
+    private LocalDateTime timestamp;
+
 }

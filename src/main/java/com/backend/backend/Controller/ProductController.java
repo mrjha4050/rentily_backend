@@ -33,18 +33,18 @@ public class ProductController {
     }
 
     @PostMapping
-//    public ResponseEntity<Product> createProductWithoutImage(@RequestBody @Valid ProductDTO productDTO) {
-//        return ResponseEntity.ok(productServiceImpl.createProduct(productDTO));
-//    }
-    public ResponseEntity<Product> createProduct (
-            @Valid @RequestPart("product") ProductDTO productDTO,
-            @RequestPart(value = "image", required = false) MultipartFile image)  throws IOException {
-        if (image != null) {
-            String imageUrl = cloudinaryService.uploadImage(image);
-            productDTO.setImageUrl(imageUrl);
-        }
+    public ResponseEntity<Product> createProductWithoutImage(@RequestBody @Valid ProductDTO productDTO) {
         return ResponseEntity.ok(productServiceImpl.createProduct(productDTO));
     }
+//    public ResponseEntity<Product> createProduct (
+//            @Valid @RequestPart("product") ProductDTO productDTO,
+//            @RequestPart(value = "image", required = false) MultipartFile image)  throws IOException {
+//        if (image != null) {
+//            String imageUrl = cloudinaryService.uploadImage(image);
+//            productDTO.setImageUrl(imageUrl);
+//        }
+//        return ResponseEntity.ok(productServiceImpl.createProduct(productDTO));
+//    }
 
 
     @PutMapping("/{id}")
