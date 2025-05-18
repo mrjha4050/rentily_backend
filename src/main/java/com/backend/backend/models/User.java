@@ -9,10 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
     @Id
-    public String id;
-    public String name;
-    public String email;
-    public String password;
-    public String role;
-
+    private String id;
+    private String name;
+    private String email;
+    private String password;
+    private String role;
+    private String phoneNumber;
 }
