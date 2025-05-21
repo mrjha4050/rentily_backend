@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
-                                "/swagger-ui.html" , "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/webjars/**", "/h2-console/**", "/api/cart/**", "/api/transaction/**", "/api/products/**")
+                                "/swagger-ui.html" , "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/webjars/**", "/h2-console/**", "/api/cart/**", "/api/transaction/**", "/api/reviews/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
