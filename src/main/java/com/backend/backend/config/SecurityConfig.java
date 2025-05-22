@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
-                                "/swagger-ui.html" , "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/webjars/**", "/h2-console/**", "/api/cart/**", "/api/transaction/**", "/api/reviews/**")
+                                "/swagger-ui.html" , "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/webjars/**", "/h2-console/**", "/api/cart/**", "/api/transaction/**", "/api/chats/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
@@ -48,7 +48,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
-
     }
 
     @Bean
