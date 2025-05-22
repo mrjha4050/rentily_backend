@@ -33,6 +33,8 @@ public class ChatController {
         return ResponseEntity.ok(chatServiceImpl.getChatRoom(productId, buyerId));
     }
 
+
+    //Delete the chat room
     @DeleteMapping("/room")
     public ResponseEntity<Void> deleteChatRoom(
             @RequestParam String productId,
@@ -41,19 +43,19 @@ public class ChatController {
         return ResponseEntity.noContent().build();
     }
 
-    // ✅ Get all chat rooms for a user
+    //  Get all chat rooms for a user
     @GetMapping("/rooms/{userId}")
     public ResponseEntity<List<ChatRoom>> getUserChatRooms(@PathVariable String userId) {
         return ResponseEntity.ok(chatServiceImpl.getUserChatRooms(userId));
     }
 
-    // ✅ Send a message
+    // Send a message
     @PostMapping("/message")
     public ResponseEntity<ChatMessage> sendMessage(@RequestBody ChatMessageDTO messageDTO) {
         return ResponseEntity.ok(chatServiceImpl.sendMessage(messageDTO));
     }
 
-    // ✅ Get all messages in a chat room
+    // Get all messages in a chat room
     @GetMapping("/messages/{chatRoomId}")
     public ResponseEntity<List<ChatMessage>> getMessages(@PathVariable String chatRoomId) {
         return ResponseEntity.ok(chatServiceImpl.getMessages(chatRoomId));

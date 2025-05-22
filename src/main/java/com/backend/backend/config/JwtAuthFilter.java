@@ -39,7 +39,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             System.out.println("Email : " + email);
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 Optional<User> userOpt = userRepository.findByEmail(email);
-                System.out.println("Testing logs -------------"+userOpt.isPresent());
                 if (userOpt.isPresent()) {
                     UserDetails userDetails = new UserDetailsImpl(userOpt.get());
                     if (jwtUtil.validateToken(token, email)) {
@@ -50,7 +49,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     }
                 }
             }
-        System.out.println(" testing 2 ___________ testing");
         }
         filterChain.doFilter(request, response);
     }
