@@ -1,6 +1,5 @@
 package com.backend.backend.config;
 
-
 import com.backend.backend.Service.ServiceImpl.UserDetailsImpl;
 import com.backend.backend.dao.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -25,23 +24,36 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     private final JwtAuthFilter jwtAuthFilter;
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {this.jwtAuthFilter = jwtAuthFilter;}
-    
+
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+        this.jwtAuthFilter = jwtAuthFilter;
+    }
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) //
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(
-                        auth -> auth.requestMatchers(
-                                "/swagger-ui.html", "/swagger-ui/**","/api/notifications/**" ,"/v3/api-docs/**", "/api/auth/**", " /api/auth/me" ,"/webjars/**", "/h2-console/**", "/api/cart/**", "/api/transaction/**", "/api/chats/**")
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/api/notifications/**",
+                                "/v3/api-docs/**",
+                                "/api/auth/**",           //
+                                "/webjars/**",
+                                "/h2-console/**",
+                                "/api/cart/**",
+                                "/api/transaction/**",
+                                "/api/chats/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
@@ -66,10 +78,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173/","*"));
-        config.setAllowedMethods(List.of("GET", "PUT", "POST", "DELETE" ,"OPTIONS"));
+        config.setAllowedOrigins(List.of("http://localhost:5174")); //
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(false);
+        config.setAllowCredentials(true); //
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
