@@ -4,7 +4,6 @@ import com.backend.backend.dao.ValidProduct;
 import com.backend.backend.models.Product;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import jakarta.validation.Valid;
 
 public class ProductValidator implements ConstraintValidator<ValidProduct, Product> {
     @Override
