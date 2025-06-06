@@ -3,6 +3,7 @@ package com.backend.backend.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class ProductDTO {
@@ -13,7 +14,6 @@ public class ProductDTO {
     private String type;
     private String status;
     private String userId;
-    private String imageUrl;
+    private List<String> imageUrls;
     private LocalDateTime timestamp;
-
 }

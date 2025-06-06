@@ -20,6 +20,6 @@ public class ProductValidator implements ConstraintValidator<ValidProduct, Produ
             isValid = false;
         }
 
-         return isValid;
+        return isValid;
     }
 }

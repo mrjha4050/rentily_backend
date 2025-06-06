@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
@@ -32,29 +33,28 @@ public class ProductController {
     }
 
     @PostMapping
-//    public ResponseEntity<Product> createProductWithoutImage(@RequestBody @Valid ProductDTO productDTO) {
-//        return ResponseEntity.ok(productServiceImpl.createProduct(productDTO));
-//    }
-    public ResponseEntity<Product> createProduct (
+    public ResponseEntity<Product> createProduct(
             @Valid @RequestPart("product") ProductDTO productDTO,
-            @RequestPart(value = "image", required = false) MultipartFile image)  throws IOException {
-        if (image != null) {
-            String imageUrl = cloudinaryService.uploadImage(image);
-            productDTO.setImageUrl(imageUrl);
+            @RequestPart(value = "images", required = false) MultipartFile[] images) throws IOException {
+
+        if (images != null && images.length > 0) {
+            List<String> imageUrls = cloudinaryService.uploadImages(images);
+            productDTO.setImageUrls(imageUrls);
         }
         return ResponseEntity.ok(productServiceImpl.createProduct(productDTO));
     }
+
 
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(
             @PathVariable String id,
             @Valid @RequestPart("product") ProductDTO productDTO,
-            @RequestPart(value = "image", required = false) MultipartFile image ) throws IOException {
+            @RequestPart(value = "image", required = false) MultipartFile[] image ) throws IOException {
 
         if (image != null) {
-            String imageUrl = cloudinaryService.uploadImage(image);
-            productDTO.setImageUrl(imageUrl);
+            List<String> imageUrls = cloudinaryService.uploadImages(image);
+            productDTO.setImageUrls(imageUrls);
         }
         return ResponseEntity.ok(productServiceImpl.updateProduct(id, productDTO));
     }

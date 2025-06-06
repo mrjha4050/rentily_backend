@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Document(collection = "products")
@@ -21,7 +22,7 @@ public class Product {
     private String type; // e.g., "SELL", "RENT", "BUY"
     private String userId; // Reference to the user who posted it
     private String status; // e.g., "AVAILABLE", "SOLD", "RENTED"
-    private String imageUrl;
+    private List<String> imageUrls;
     private LocalDateTime timestamp;
 
 }

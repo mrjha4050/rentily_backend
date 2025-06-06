@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
             product.setDescription(productDTO.getDescription());
             product.setPrice(productDTO.getPrice());
             product.setUserId(productDTO.getUserId());
-            product.setImageUrl(productDTO.getImageUrl());
+            product.setImageUrls(productDTO.getImageUrls());
             product.setCategory(productDTO.getCategory());
             product.setType(productDTO.getType());
             product.setStatus("Available");
@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
             existing.setPrice(product.getPrice());
             existing.setType(product.getType());
             existing.setStatus(product.getStatus());
-            existing.setImageUrl(product.getImageUrl());
+            existing.setImageUrls(product.getImageUrls());
             existing.setTimestamp(product.getTimestamp());
             return productRepository.save(existing);
         }
