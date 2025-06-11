@@ -44,8 +44,6 @@ public class ProductController {
         return ResponseEntity.ok(productServiceImpl.createProduct(productDTO));
     }
 
-
-
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(
             @PathVariable String id,
@@ -115,6 +113,12 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> result = productService.searchProducts(keyword, category, type, minPrice, maxPrice, pageable);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/recent")
+    public ResponseEntity<List<Product>> getRecentProducts(
+            @RequestParam(defaultValue = "10") int limit) {
+        return ResponseEntity.ok(productService.getAllByOrderByCreatedAtDesc(limit));
     }
 
 }

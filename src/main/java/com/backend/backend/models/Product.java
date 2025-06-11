@@ -19,10 +19,10 @@ public class Product {
     private double price;
 
     private String category;
-    private String type; // e.g., "SELL", "RENT", "BUY"
+    private String type; // e.g., "SELL", "RENT"
     private String userId; // Reference to the user who posted it
     private String status; // e.g., "AVAILABLE", "SOLD", "RENTED"
     private List<String> imageUrls;
-    private LocalDateTime timestamp;
+    private LocalDateTime createdAt;
 
 }

@@ -6,8 +6,12 @@ import com.backend.backend.dto.ProductDTO;
 import com.backend.backend.models.Product;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -27,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
             product.setCategory(productDTO.getCategory());
             product.setType(productDTO.getType());
             product.setStatus("Available");
-            product.setTimestamp(productDTO.getTimestamp());
+            product.setCreatedAt(productDTO.getCreatedAt());
             return productRepository.save(product);
         }
 
@@ -40,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
             existing.setType(product.getType());
             existing.setStatus(product.getStatus());
             existing.setImageUrls(product.getImageUrls());
-            existing.setTimestamp(product.getTimestamp());
+            existing.setCreatedAt(product.getCreatedAt());
             return productRepository.save(existing);
         }
 
@@ -66,6 +70,11 @@ public class ProductServiceImpl implements ProductService {
 
         public Page<Product> searchProducts(String keyword, String category, String type, double minPrice, double maxPrice, Pageable pageable) {
             return productRepository.searchProducts(keyword, category, type, minPrice, maxPrice, pageable);
+        }
+
+        public List<Product> getAllByOrderByCreatedAtDesc(int limit) {
+            Pageable pageable = PageRequest.of(0, limit, Sort.by("createdAt").descending());
+            return productRepository.findAllByOrderByCreatedAtDesc(pageable).getContent();
         }
 
 }

@@ -15,5 +15,5 @@ public class ProductDTO {
     private String status;
     private String userId;
     private List<String> imageUrls;
-    private LocalDateTime timestamp;
+    private LocalDateTime createdAt;
 }

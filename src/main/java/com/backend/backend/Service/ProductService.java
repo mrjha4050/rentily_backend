@@ -5,6 +5,8 @@ import com.backend.backend.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface ProductService {
     Product createProduct(ProductDTO dto);
     Product updateProduct(String id , ProductDTO dto);
@@ -15,4 +17,5 @@ public interface ProductService {
     Page<Product> getProductsByType(String type, Pageable pageable);
     Page<Product> searchProducts(String keyword, String category, String type, double minPrice, double maxPrice, Pageable pageable);
     Page<Product> getProductsByCategoryAndType(String category, String type, Pageable pageable);
+    List<Product> getAllByOrderByCreatedAtDesc(int limit);
 }

@@ -10,8 +10,8 @@ public class ProductValidator implements ConstraintValidator<ValidProduct, Produ
     public boolean isValid(Product product , ConstraintValidatorContext context) {
         boolean isValid = true;
 
-        if(!product.getType().matches("SELL|BUY|RENT")){
-            context.buildConstraintViolationWithTemplate("type must be sell , buy , rent").addPropertyNode("type").addConstraintViolation();
+        if(!product.getType().matches("SELL|RENT")){
+            context.buildConstraintViolationWithTemplate("type must be sell , rent").addPropertyNode("type").addConstraintViolation();
             isValid = false;
         }
 

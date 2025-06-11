@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ProductRepository extends MongoRepository<Product , String> {
@@ -14,6 +15,7 @@ public interface ProductRepository extends MongoRepository<Product , String> {
     Page<Product> findByCategory(String category, Pageable pageable);
     Page<Product> findByType(String type, Pageable pageable);
     Page<Product> findByCategoryAndType(String category, String type, Pageable pageable);
+    Page<Product> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
     @Query("{ '$and': [ " +
             "{ 'title': { $regex: ?0, $options: 'i' } }, " +               // keyword
