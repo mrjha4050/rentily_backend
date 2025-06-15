@@ -11,7 +11,7 @@ public interface ProductService {
     Product createProduct(ProductDTO dto);
     Product updateProduct(String id , ProductDTO dto);
     void deleteProduct(String id);
-
+    Page<Product> getProductById(String id, Pageable pageable);
     Page<Product> getProductsByUser(String userId, Pageable pageable);
     Page<Product> getProductsByCategory(String category, Pageable pageable);
     Page<Product> getProductsByType(String type, Pageable pageable);

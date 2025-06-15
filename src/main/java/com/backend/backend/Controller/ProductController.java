@@ -48,13 +48,23 @@ public class ProductController {
     public ResponseEntity<Product> updateProduct(
             @PathVariable String id,
             @Valid @RequestPart("product") ProductDTO productDTO,
-            @RequestPart(value = "image", required = false) MultipartFile[] image ) throws IOException {
+            @RequestPart(value = "image", required = false) MultipartFile[] image) throws IOException {
 
-        if (image != null) {
+        if (image != null && image.length > 0) {
             List<String> imageUrls = cloudinaryService.uploadImages(image);
             productDTO.setImageUrls(imageUrls);
         }
         return ResponseEntity.ok(productServiceImpl.updateProduct(id, productDTO));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(
+            @PathVariable String id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Product product = productServiceImpl.getProductById(id, pageable).getContent().get(0);
+        return ResponseEntity.ok(product);
     }
 
     @DeleteMapping("/{id}")
@@ -62,7 +72,6 @@ public class ProductController {
         productServiceImpl.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
-
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<Page<Product>> getProductsByUser(

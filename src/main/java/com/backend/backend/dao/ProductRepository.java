@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ProductRepository extends MongoRepository<Product , String> {
-
+    Page<Product> findById(String id,  Pageable pageable);
     Page<Product> findByUserId(String userId, Pageable pageable);
     Page<Product> findByCategory(String category, Pageable pageable);
     Page<Product> findByType(String type, Pageable pageable);

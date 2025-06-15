@@ -56,6 +56,10 @@ public class ProductServiceImpl implements ProductService {
             return productRepository.findByUserId(userId, pageable);
         }
 
+        public Page<Product> getProductById(String id, Pageable pageable) {
+            return productRepository.findById(id, pageable);
+        }
+
         public Page<Product> getProductsByCategory(String category, Pageable pageable) {
             return productRepository.findByCategory(category, pageable);
         }
