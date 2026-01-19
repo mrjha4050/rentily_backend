@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: rentily-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: backend
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - rentily-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rentily-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: backend
+      # Add other environment variables if needed
+      # CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      # CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      # CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - rentily-network
+
+networks:
+  rentily-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
