@@ -41,6 +41,12 @@ try {
         "accept" = "*/*"
     }
     
+    Write-Host ""
+    Write-Host "Headers being sent:" -ForegroundColor Yellow
+    Write-Host "  Authorization: Bearer $($token.Substring(0, [Math]::Min(50, $token.Length)))..." -ForegroundColor Gray
+    Write-Host "  accept: $($headers['accept'])" -ForegroundColor Gray
+    Write-Host ""
+    
     $meResponse = Invoke-RestMethod -Uri "$BaseUrl/api/auth/me" `
         -Method GET `
         -Headers $headers

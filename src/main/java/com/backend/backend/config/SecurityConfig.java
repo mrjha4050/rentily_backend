@@ -49,7 +49,10 @@ public class SecurityConfig {
                                 "/api/cart/**",
                                 "/api/transaction/**",
                                 "/api/chats/**",
-                                "/api/products/**"
+                                "/api/products/**",
+                                "/actuator/health",
+                                "/actuator/info",
+                                "/health"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
